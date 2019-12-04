@@ -36,18 +36,26 @@ service:
 
 ingress:
   enabled: true
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  annotations: 
+    cert-manager.io/issuer: "letsencrypt-prod"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+    certmanager.k8s.io/acme-http01-edit-in-place: "true"
   hosts:
     - host: mstlouis.com
-      paths: ['/']
+      paths: ['/*']
     - host: www.mstlouis.com
-      paths: ['/']
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+      paths: ['/*']
+    - host: benedicte.ca
+      paths: ['/*']
+    - host: www.benedicte.ca
+      paths: ['/*']
+  tls: 
+    - secretName: openresty-tls
+      hosts:
+        - mstlouis.com
+        - www.mstlouis.com
+        - benedicte.ca 
+        - www.benedicte.ca
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

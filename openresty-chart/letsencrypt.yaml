@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+ labels:
+   name: letsencrypt-prod
+ name: letsencrypt-prod
+spec:
+ acme:
+   email: matfino@gmail.com
+   http01: {}
+   privateKeySecretRef:
+     name: letsencrypt-prod
+   server: https://acme-v02.api.letsencrypt.org/directory
